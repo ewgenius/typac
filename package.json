@@ -1,0 +1,29 @@
+{
+  "name": "typac",
+  "version": "0.1.0",
+  "description": "cli wrapper over npm and yarn for installing npm dependencies with typescript typings",
+  "repository": "git@github.com:ewgenius/typac.git",
+  "author": "Evgeniy Khramkov <ewgeniux@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf build && tsc -p ./",
+    "prepublish": "npm run build"
+  },
+  "bin": {
+    "typac": "./bin/typac.js"
+  },
+  "files": [
+    "bin",
+    "build",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/commander": "^2.3.31",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "cross-spawn": "^5.1.0"
+  }
+}

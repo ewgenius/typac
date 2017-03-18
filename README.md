@@ -11,4 +11,4 @@ Cli tool for installing npm package with corresponding ```@types``` typings pack
 - ```typac <package>``` - install ```<package>``` in dependencies and corresponding type definitions package in devDependencies
 - ```typac <package> -d``` or ```typac <package> --dev``` - install ```<package>``` and corresponding type definitions package, both in devDependencies
 
-Name by @ploddy
+Name by [@ploddy](https://github.com/ploddi)

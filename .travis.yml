@@ -4,6 +4,7 @@ cache:
   - node_modules
 install: npm install
 script:
+  - 'npm run build'
   - './tests/e2e.sh'
 node_js:
   - "4"

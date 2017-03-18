@@ -9,7 +9,6 @@ interface ITypacProgramm {
   args: string[];
   dev: boolean;
   save: boolean;
-  yarn: boolean;
 }
 
 const useYarn = fs.existsSync(path.join(process.cwd(), 'yarn.lock'));
@@ -19,49 +18,43 @@ programm
   .usage('[options] package_name [package_name_1 ...]')
   .option('-d, --dev', 'save all to devDependencies')
   .option('-s, --save', 'save all to dependencies')
-  .option('-y, --yarn', 'use yarn', useYarn)
   .parse(process.argv);
 
 const prog = (programm as any) as ITypacProgramm;
 
 const packages = prog.args;
-const { dev, save, yarn } = prog;
-
-console.log(packages, dev, save, yarn);
+const { dev, save } = prog;
 
 if (dev && save) {
-  console.log('invalid arguments');
+  console.log('--dev and --save flags are mutually exclusive, only one allowed');
   process.exit(1);
 }
 
 let manager;
-let installCommand;
-let args;
-let argsTyped;
+let args; // arguments for package install
+let argsTyped; // arguments fro ypings install
 
-if (yarn) {
+if (useYarn) {
   manager = 'yarnpkg';
   args = [
     'add',
   ];
-  if (dev) {
+  if (dev || !save) {
     args.push('-D');
   }
-  installCommand = ['add'];
-  argsTyped = [
-    'add',
-    '-D',
-  ];
+  argsTyped = ['add'];
+  if (!save) {
+    args.push('-D');
+  }
 } else {
   manager = 'npm';
   args = [
     'install',
-    dev ? '--save-dev' : '--save',
+    dev ? '--save-dev' : '--save'
   ];
-  installCommand = ['install'];
   argsTyped = [
     'install',
-    '--save-dev',
+    save ? '--save' : '--save-dev'
   ];
 }
 
@@ -71,13 +64,14 @@ argsTyped.push(...packages.map((p) => '@types/' + p));
 const command = manager + ' ' + args.join(' ');
 const commandTyped = manager + ' ' + argsTyped.join(' ');
 
-console.log(command);
-console.log(commandTyped);
+console.log('installing', packages.length, `package${packages.length > 1 ? 's' : ''} with`, useYarn ? 'yarn' : 'npm');
 
 const spawnParams = {
   stdio: 'inherit',
   cwd: process.cwd()
 };
 
+console.log('running', command);
 spawnSync(manager, args, spawnParams);
+console.log('running', commandTyped);
 spawnSync(manager, argsTyped, spawnParams);

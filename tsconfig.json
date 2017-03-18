@@ -11,7 +11,7 @@
     "outDir": "build"
   },
   "exclude": [
-    "node_nodules",
+    "node_modules",
     "build"
   ]
 }

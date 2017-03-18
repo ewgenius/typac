@@ -9,6 +9,9 @@
     "build": "rm -rf build && tsc -p ./",
     "prepublish": "npm run build"
   },
+  "bin": {
+    "typac": "./bin/typac.js"
+  },
   "files": [
     "bin",
     "build",
@@ -16,10 +19,12 @@
   ],
   "devDependencies": {
     "@types/commander": "^2.3.31",
+    "@types/react": "^15.0.16",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1"
   },
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "cross-spawn": "^5.1.0"
   }
 }

@@ -1,14 +1,24 @@
 # TYPAC - TYped PACkage manager
 
+[![Build Status](https://travis-ci.org/ewgenius/typac.svg?branch=master)](https://travis-ci.org/ewgenius/typac)
+
 Every time you need to do something like this ```npm install --save <package>``` and then ```npm install --save-dev @types/<package>``` *typac* is just for you!
 
 ## Description
 
 Cli tool for installing npm package with corresponding ```@types``` typings package (if it exists).
 
-## Usage
+## Install
 
-- ```typac <package>``` - install ```<package>``` in dependencies and corresponding type definitions package in devDependencies
-- ```typac <package> -d``` or ```typac <package> --dev``` - install ```<package>``` and corresponding type definitions package, both in devDependencies
+```npm install -g typac```
+
+or
+
+```yarn global add typac```
+
+## Usage
+- ```typac <package>``` - install ```<package>``` in dependencies section and corresponding type definitions package in devDependencies section
+- ```typac <package> -d``` or ```typac <package> --dev``` - install ```<package>``` and corresponding type definitions package, both in devDependencies section
+- ```typac <package> -s``` or ```typac <package> --save``` - install ```<package>``` and corresponding type definitions package, both in dependencies section
 
 Name by [@ploddy](https://github.com/ploddi)

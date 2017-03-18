@@ -2,9 +2,9 @@ language: node_js
 cache:
   directories:
   - node_modules
-install: true
+install: npm install
 script:
-  - 'tests/e2e.sh'
+  - './tests/e2e.sh'
 node_js:
   - "4"
   - "6"

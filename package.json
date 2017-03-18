@@ -4,5 +4,12 @@
   "description": "cli wrapper over npm and yarn for installing npm dependencies with typescript typings",
   "repository": "git@github.com:ewgenius/typac.git",
   "author": "Evgeniy Khramkov <ewgeniux@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf build && tsc -p ./"
+  },
+  "devDependencies": {
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1"
+  }
 }

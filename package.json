@@ -1,6 +1,6 @@
 {
   "name": "typac",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "cli wrapper over npm and yarn for installing npm dependencies with typescript typings",
   "repository": "git@github.com:ewgenius/typac.git",
   "author": "Evgeniy Khramkov <ewgeniux@gmail.com>",

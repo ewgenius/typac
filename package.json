@@ -23,7 +23,6 @@
     "typescript": "^2.2.1"
   },
   "dependencies": {
-    "commander": "^2.9.0",
-    "cross-spawn": "^5.1.0"
+    "commander": "^2.9.0"
   }
 }

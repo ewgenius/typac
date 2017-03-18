@@ -19,7 +19,6 @@
   ],
   "devDependencies": {
     "@types/commander": "^2.3.31",
-    "@types/react": "^15.0.16",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1"
   },

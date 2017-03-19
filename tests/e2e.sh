@@ -42,9 +42,6 @@ function handle_exit {
 cd ..
 root_path=$PWD
 
-# npm install
-# npm run build
-
 mkdir test
 cd test
 

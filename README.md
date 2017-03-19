@@ -4,6 +4,8 @@
 
 Every time you need to do something like this ```npm install --save <package>``` and then ```npm install --save-dev @types/<package>``` *typac* is just for you!
 
+![Imgur](http://i.imgur.com/V6d1zDw.gif)
+
 ## Description
 
 Cli tool for installing npm package with corresponding ```@types``` typings package (if it exists).

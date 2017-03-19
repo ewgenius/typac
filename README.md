@@ -20,5 +20,12 @@ or
 - ```typac <package>``` - install ```<package>``` in dependencies section and corresponding type definitions package in devDependencies section
 - ```typac <package> -d``` or ```typac <package> --dev``` - install ```<package>``` and corresponding type definitions package, both in devDependencies section
 - ```typac <package> -s``` or ```typac <package> --save``` - install ```<package>``` and corresponding type definitions package, both in dependencies section
+- ```typac <package 1> [<package 2> ...]``` - install several packages
 
-Name by [@ploddy](https://github.com/ploddi)
+## TODO
+* [ ] more complete tests
+* [ ] npm/yarn error handling
+
+#
+
+Named by [@ploddi](https://github.com/ploddi)

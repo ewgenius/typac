@@ -1,6 +1,6 @@
 {
   "name": "typac",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "cli wrapper over npm and yarn for installing npm packages along with corresponding typings",
   "keywords": [
     "cli",

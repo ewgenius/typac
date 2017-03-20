@@ -39,12 +39,12 @@ if (useYarn) {
   args = [
     'add',
   ];
-  if (dev || !save) {
+  if (dev) {
     args.push('-D');
   }
   argsTyped = ['add'];
   if (!save) {
-    args.push('-D');
+    argsTyped.push('-D');
   }
 } else {
   manager = 'npm';

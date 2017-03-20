@@ -21,6 +21,8 @@
   "files": [
     "bin",
     "build",
+    "LICENSE.md",
+    "package.json",
     "README.md"
   ],
   "devDependencies": {

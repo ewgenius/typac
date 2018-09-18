@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as programm from 'commander';
 import { spawnSync } from 'child_process';
+import * as npmFetch from 'npm-registry-fetch'
+import * as npm from '@npm/types'
 
 const pckg = require('../package.json');
 
@@ -16,6 +18,8 @@ const useYarn = fs.existsSync(path.join(process.cwd(), 'yarn.lock'));
 programm
   .version(pckg.version)
   .usage('[options] package_name [package_name_1 ...]')
+  .option('-D, --dev') // alias
+  .option('-S, --save') // alias
   .option('-d, --dev', 'save all to devDependencies')
   .option('-s, --save', 'save all to dependencies')
   .parse(process.argv);
@@ -30,48 +34,79 @@ if (dev && save) {
   process.exit(1);
 }
 
-let manager;
-let args; // arguments for package install
-let argsTyped; // arguments fro ypings install
+main().catch((err) => {
+  throw err;
+});
+async function main() {
+  let manager;
+  let args; // arguments for package install
+  let argsTyped; // arguments fro ypings install
 
-if (useYarn) {
-  manager = 'yarnpkg';
-  args = [
-    'add',
-  ];
-  if (dev) {
-    args.push('-D');
+  if (useYarn) {
+    manager = 'yarnpkg';
+    args = [
+      'add',
+    ];
+    if (dev) {
+      args.push('-D');
+    }
+    argsTyped = ['add'];
+    if (!save) {
+      argsTyped.push('-D');
+    }
+  } else {
+    manager = 'npm';
+    args = [
+      'install',
+      dev ? '--save-dev' : '--save'
+    ];
+    argsTyped = [
+      'install',
+      save ? '--save' : '--save-dev'
+    ];
   }
-  argsTyped = ['add'];
-  if (!save) {
-    argsTyped.push('-D');
+
+  args.push(...packages);
+
+  const typedPackages = (await Promise.all(packages
+  .map((p) => p.startsWith('@') ? p.slice(1).replace('/', '__') : p)
+  .map((p) => '@types/' + p)
+  .map((p) => {
+    return npmFetch.json<npm.Manifest>(p.replace(/\//g, '%2F'))
+    .then((json) => {
+      const latestVersion = json['dist-tags'].latest;
+      if (json.versions[latestVersion].deprecated) {
+        return false;
+      }
+      return json.name;
+    })
+    .catch((err) => {
+      if (err.statusCode !== 404) {
+        throw err;
+      }
+      return false;
+    })
+  })))
+  .filter((p) => p)
+
+  argsTyped.push(...typedPackages);
+
+  const command = manager + ' ' + args.join(' ');
+  const commandTyped = manager + ' ' + argsTyped.join(' ');
+
+  console.log('installing', packages.length, `package${packages.length > 1 ? 's' : ''} with`, useYarn ? 'yarn' : 'npm');
+
+  const spawnParams = {
+    stdio: 'inherit',
+    cwd: process.cwd()
+  };
+
+  console.log('running', command);
+  spawnSync(manager, args, spawnParams);
+  if (typedPackages.length > 0) {
+    console.log('running', commandTyped);
+    spawnSync(manager, argsTyped, spawnParams);
+  } else {
+    console.log('no @types module found for requested packages')
   }
-} else {
-  manager = 'npm';
-  args = [
-    'install',
-    dev ? '--save-dev' : '--save'
-  ];
-  argsTyped = [
-    'install',
-    save ? '--save' : '--save-dev'
-  ];
 }
-
-args.push(...packages);
-argsTyped.push(...packages.map((p) => '@types/' + p));
-
-const command = manager + ' ' + args.join(' ');
-const commandTyped = manager + ' ' + argsTyped.join(' ');
-
-console.log('installing', packages.length, `package${packages.length > 1 ? 's' : ''} with`, useYarn ? 'yarn' : 'npm');
-
-const spawnParams = {
-  stdio: 'inherit',
-  cwd: process.cwd()
-};
-
-console.log('running', command);
-spawnSync(manager, args, spawnParams);
-console.log('running', commandTyped);
-spawnSync(manager, argsTyped, spawnParams);

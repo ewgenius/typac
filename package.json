@@ -26,11 +26,16 @@
     "README.md"
   ],
   "devDependencies": {
+    "@npm/types": "^1.0.1",
     "@types/commander": "^2.3.31",
+    "@types/node": "^6.0.117",
+    "@types/node-fetch": "^2.1.2",
+    "@types/npmlog": "^4.1.1",
     "tslint": "^4.5.1",
-    "typescript": "^2.2.1"
+    "typescript": "^3.0.3"
   },
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "npm-registry-fetch": "^3.8.0"
   }
 }

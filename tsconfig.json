@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
+    "typeRoots": [
+      "./node_modules/@types",
+      "./typings/global"
+    ],
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2015",
     "alwaysStrict": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,

@@ -5,7 +5,9 @@
 
 Every time you need to do something like this ```npm install --save <package>``` and then ```npm install --save-dev @types/<package>``` *typac* is just for you!
 
-![Imgur](http://i.imgur.com/V6d1zDw.gif)
+![Imgur](https://i.imgur.com/It5VZ0p.gif)
+
+![Imgur](https://i.imgur.com/PUjXCNZ.gif)
 
 ## Description
 

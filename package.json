@@ -13,6 +13,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf build && tsc -p ./",
+    "test": "jest",
     "prepublish": "npm run build"
   },
   "bin": {

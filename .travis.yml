@@ -8,6 +8,7 @@ script:
   - 'yarn test'
   - './tests/e2e.sh'
 node_js:
+  - "6"
   - "8"
   - "10"
   - "11"

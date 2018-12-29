@@ -26,4 +26,4 @@ steps:
 - task: PublishPipelineArtifact@0
   inputs:
     artifactName: 'typac-package'
-    targetPath: 'typac-*.tgz'
+    targetPath: './*.tgz'

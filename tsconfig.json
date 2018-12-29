@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2015",
     "alwaysStrict": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
@@ -12,6 +12,7 @@
   },
   "exclude": [
     "node_modules",
-    "build"
+    "build",
+    "tests"
   ]
 }

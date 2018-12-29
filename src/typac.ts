@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as programm from 'commander';
-import { spawnSync } from 'child_process';
+import { spawnSync, SpawnSyncOptions } from 'child_process';
+import { typifyPackageName } from './utils';
 
 const pckg = require('../package.json');
 
@@ -59,14 +60,14 @@ if (useYarn) {
 }
 
 args.push(...packages);
-argsTyped.push(...packages.map((p) => '@types/' + p));
+argsTyped.push(...packages.map((p) => typifyPackageName(p)));
 
 const command = manager + ' ' + args.join(' ');
 const commandTyped = manager + ' ' + argsTyped.join(' ');
 
 console.log('installing', packages.length, `package${packages.length > 1 ? 's' : ''} with`, useYarn ? 'yarn' : 'npm');
 
-const spawnParams = {
+const spawnParams: SpawnSyncOptions = {
   stdio: 'inherit',
   cwd: process.cwd()
 };

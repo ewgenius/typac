@@ -1,0 +1,26 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '8.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    yarn install
+    yarn test
+    yarn build
+  displayName: 'yarn install, test and build'
+
+- script: npm pack
+
+- script: mkdir package && mv ./*.tgz ./package
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'typac-package'
+    targetPath: './package'

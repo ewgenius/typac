@@ -20,3 +20,10 @@ steps:
     yarn test
     yarn build
   displayName: 'yarn install, test and build'
+
+- script: npm pack
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'typac-package'
+    targetPath: 'typac-*.tgz'

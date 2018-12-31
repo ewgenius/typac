@@ -1,7 +1,7 @@
 # TYPAC - TYped PACkage manager
 
 [![Build Status](https://dev.azure.com/ewgeniux/typac/_apis/build/status/ewgenius.typac?branchName=master)](https://dev.azure.com/ewgeniux/typac/_build/latest?definitionId=1?branchName=master)
-[![Build Status](https://travis-ci.org/ewgenius/typac.svg?branch=master)](https://travis-ci.org/ewgenius/typac)
+[![Build Status](https://travis-ci.com/ewgenius/typac.svg?branch=master)](https://travis-ci.com/ewgenius/typac)
 
 Every time you need to do something like this ```npm install --save <package>``` and then ```npm install --save-dev @types/<package>``` *typac* is just for you!
 

@@ -1,9 +1,9 @@
 workflow "build, test and publish" {
   on = "push"
-  resolves = ["GitHub Action for npm"]
+  resolves = ["nom install"]
 }
 
-action "GitHub Action for npm" {
-  uses = "yarn"
-  runs = "build"
+action "nom install" {
+  uses = "actions/npm@e7aaefe"
+  runs = "install"
 }

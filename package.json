@@ -13,7 +13,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf build && tsc -p ./",
-    "test": "jest"
+    "test": "jest",
+    "e2e": "./tests/e2e.sh"
   },
   "bin": {
     "typac": "./bin/typac.js"

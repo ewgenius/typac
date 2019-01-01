@@ -1,6 +1,6 @@
 {
   "name": "typac",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "cli wrapper over npm and yarn for installing npm packages along with corresponding typings",
   "keywords": [
     "cli",
@@ -13,7 +13,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf build && tsc -p ./",
-    "test": "jest"
+    "test": "jest",
+    "e2e": "./tests/e2e.sh"
   },
   "bin": {
     "typac": "./bin/typac.js"

@@ -35,6 +35,14 @@ function handle_exit {
   exit
 }
 
+function init_test_dir {
+  cleanup
+  mkdir test
+  cd test
+  touch package.json
+  echo "{}" > package.json
+}
+
 # ******************************************************************************
 # This tests typac commands
 # ******************************************************************************
@@ -42,10 +50,13 @@ function handle_exit {
 cd ..
 root_path=$PWD
 
-mkdir test
-cd test
-
-touch package.json
-echo "{}" > package.json
-
+init_test_dir
 "$root_path"/bin/typac.js react
+
+init_test_dir
+touch yarn.lock
+"$root_path"/bin/typac.js react
+
+init_test_dir
+touch yarn.lock
+"$root_path"/bin/typac.js @babel/core @babel/code-frame

@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as programm from 'commander';
 import { spawnSync, SpawnSyncOptions } from 'child_process';
-import { typifyPackageName } from './utils';
+import { typifyPackageName, installArguments, PackageManager } from './utils';
 
 const pckg = require('../package.json');
 
@@ -31,36 +31,10 @@ if (dev && save) {
   process.exit(1);
 }
 
-let manager;
-let args; // arguments for package install
-let argsTyped; // arguments fro ypings install
+const manager = useYarn ? PackageManager.YARN : PackageManager.NPM;
 
-if (useYarn) {
-  manager = 'yarnpkg';
-  args = [
-    'add',
-  ];
-  if (dev) {
-    args.push('-D');
-  }
-  argsTyped = ['add'];
-  if (!save) {
-    argsTyped.push('-D');
-  }
-} else {
-  manager = 'npm';
-  args = [
-    'install',
-    dev ? '--save-dev' : '--save'
-  ];
-  argsTyped = [
-    'install',
-    save ? '--save' : '--save-dev'
-  ];
-}
-
-args.push(...packages);
-argsTyped.push(...packages.map((p) => typifyPackageName(p)));
+const args = installArguments(manager, packages, !dev, dev);
+const argsTyped = installArguments(manager, packages.map((p) => typifyPackageName(p)), save, !save);
 
 const command = manager + ' ' + args.join(' ');
 const commandTyped = manager + ' ' + argsTyped.join(' ');

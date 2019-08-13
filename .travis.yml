@@ -2,11 +2,13 @@ language: node_js
 cache:
   directories:
   - node_modules
-install: npm install
+install: yarn install
 script:
-  - 'npm run build'
+  - 'yarn build'
+  - 'yarn test'
   - './tests/e2e.sh'
 node_js:
-  - "4"
   - "6"
-  - "7"
+  - "8"
+  - "10"
+  - "11"

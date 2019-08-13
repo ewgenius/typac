@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as programm from 'commander';
-import { spawnSync } from 'child_process';
+import { spawnSync, SpawnSyncOptions } from 'child_process';
 import * as npmFetch from 'npm-registry-fetch'
 import * as npm from '@npm/types'
+import { typifyPackageName, installArguments, PackageManager } from './utils';
 
 const pckg = require('../package.json');
 
@@ -38,39 +39,10 @@ main().catch((err) => {
   throw err;
 });
 async function main() {
-  let manager;
-  let args; // arguments for package install
-  let argsTyped; // arguments fro ypings install
-
-  if (useYarn) {
-    manager = 'yarnpkg';
-    args = [
-      'add',
-    ];
-    if (dev) {
-      args.push('-D');
-    }
-    argsTyped = ['add'];
-    if (!save) {
-      argsTyped.push('-D');
-    }
-  } else {
-    manager = 'npm';
-    args = [
-      'install',
-      dev ? '--save-dev' : '--save'
-    ];
-    argsTyped = [
-      'install',
-      save ? '--save' : '--save-dev'
-    ];
-  }
-
-  args.push(...packages);
+  const manager = useYarn ? PackageManager.YARN : PackageManager.NPM;
 
   const typedPackages = (await Promise.all(packages
-  .map((p) => p.startsWith('@') ? p.slice(1).replace('/', '__') : p)
-  .map((p) => '@types/' + p)
+  .map(typifyPackageName)
   .map((p) => {
     return npmFetch.json<npm.Manifest>(p.replace(/\//g, '%2F'))
     .then((json) => {
@@ -89,14 +61,14 @@ async function main() {
   })))
   .filter((p) => p)
 
-  argsTyped.push(...typedPackages);
+  const args = installArguments(manager, packages, !dev, dev);
+  const argsTyped = installArguments(manager, typedPackages, save, !save);
 
   const command = manager + ' ' + args.join(' ');
   const commandTyped = manager + ' ' + argsTyped.join(' ');
-
   console.log('installing', packages.length, `package${packages.length > 1 ? 's' : ''} with`, useYarn ? 'yarn' : 'npm');
 
-  const spawnParams = {
+  const spawnParams: SpawnSyncOptions = {
     stdio: 'inherit',
     cwd: process.cwd()
   };

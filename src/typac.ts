@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as programm from 'commander';
 import { spawnSync, SpawnSyncOptions } from 'child_process';
-import * as npmFetch from 'npm-registry-fetch'
-import * as npm from '@npm/types'
+import * as npmFetch from 'npm-registry-fetch';
+import * as npm from '@npm/types';
 import { typifyPackageName, installArguments, PackageManager } from './utils';
 
 const pckg = require('../package.json');
@@ -43,23 +43,22 @@ async function main() {
 
   const typedPackages = (await Promise.all(packages
   .map(typifyPackageName)
-  .map((p) => {
-    return npmFetch.json<npm.Manifest>(p.replace(/\//g, '%2F'))
-    .then((json) => {
+  .map(async (p) => {
+    try {
+      const json = await npmFetch.json<npm.Manifest>(p.replace(/\//g, '%2F'));
       const latestVersion = json['dist-tags'].latest;
       if (json.versions[latestVersion].deprecated) {
         return false;
       }
       return json.name;
-    })
-    .catch((err) => {
+    } catch (err) {
       if (err.statusCode !== 404) {
         throw err;
       }
       return false;
-    })
+    }
   })))
-  .filter((p) => p)
+  .filter(<T>(p: T | false): p is T => Boolean(p));
 
   const args = installArguments(manager, packages, !dev, dev);
   const argsTyped = installArguments(manager, typedPackages, save, !save);
@@ -79,6 +78,6 @@ async function main() {
     console.log('running', commandTyped);
     spawnSync(manager, argsTyped, spawnParams);
   } else {
-    console.log('no @types module found for requested packages')
+    console.log('no @types module found for requested packages');
   }
 }

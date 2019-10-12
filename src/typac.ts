@@ -45,7 +45,7 @@ async function main() {
   .map(typifyPackageName)
   .map(async (p) => {
     try {
-      const json = await npmFetch.json<npm.Manifest>(p.replace(/\//g, '%2F'));
+      const json = await npmFetch.json(p.replace(/\//g, '%2F')) as unknown as npm.Manifest;
       const latestVersion = json['dist-tags'].latest;
       if (json.versions[latestVersion].deprecated) {
         return false;

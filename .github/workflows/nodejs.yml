@@ -20,7 +20,7 @@ jobs:
     - name: npm install, build, and test
       run: |
         yarn
-        yarn run build --if-present
+        yarn run build
         yarn test
         yarn run e2e
       env:

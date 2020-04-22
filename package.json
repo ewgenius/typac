@@ -27,15 +27,20 @@
     "README.md"
   ],
   "devDependencies": {
+    "@npm/types": "^1.0.1",
     "@types/commander": "^2.12.2",
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.18",
+    "@types/node-fetch": "^2.1.2",
+    "@types/npm-registry-fetch": "^4.0.1",
+    "@types/npmlog": "^4.1.1",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.0",
     "typescript": "^3.2.2"
   },
   "dependencies": {
-    "commander": "^2.19.0"
+    "commander": "^2.19.0",
+    "npm-registry-fetch": "^3.8.0"
   }
 }

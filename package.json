@@ -27,15 +27,14 @@
     "README.md"
   ],
   "devDependencies": {
-    "@types/commander": "^2.12.2",
-    "@types/jest": "^23.3.10",
-    "@types/node": "^10.12.18",
-    "jest": "^23.6.0",
-    "ts-jest": "^23.10.5",
-    "tslint": "^5.12.0",
-    "typescript": "^3.2.2"
+    "@types/jest": "^26.0.7",
+    "@types/node": "^14.0.27",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.4",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
-    "commander": "^2.19.0"
+    "commander": "^6.0.0"
   }
 }

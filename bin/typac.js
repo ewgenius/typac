@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-'use strict';
+"use strict";
 
-require('../build/typac');
+require("../build/typac");

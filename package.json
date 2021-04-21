@@ -14,7 +14,7 @@
   "scripts": {
     "build": "rm -rf build && tsc -p ./",
     "test": "jest",
-    "e2e": "./tests/e2e.sh"
+    "e2e": "tests/e2e.sh"
   },
   "bin": {
     "typac": "./bin/typac.js"

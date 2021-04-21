@@ -13,7 +13,7 @@ cd "$(dirname "$0")"
 temp_cli_path=`mktemp -d 2>/dev/null || mktemp -d -t 'temp_cli_path'`
 temp_app_path=`mktemp -d 2>/dev/null || mktemp -d -t 'temp_app_path'`
 
-function cleanup {
+cleanup() {
   echo 'Cleaning up.'
   cd "$root_path"
   # Uncomment when snapshot testing is enabled by default:
@@ -22,20 +22,20 @@ function cleanup {
 }
 
 # Error messages are redirected to stderr
-function handle_error {
+handle_error() {
   echo "$(basename $0): ERROR! An error was encountered executing line $1." 1>&2;
   cleanup
   echo 'Exiting with error.' 1>&2;
   exit 1
 }
 
-function handle_exit {
+handle_exit() {
   cleanup
   echo 'Exiting without error.' 1>&2;
   exit
 }
 
-function init_test_dir {
+init_test_dir() {
   cleanup
   mkdir test
   cd test

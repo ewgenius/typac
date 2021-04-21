@@ -24,11 +24,23 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install, build, and test
+      - name: build
         run: |
           npm install
           npm run build
           npm run test
           npm run e2e
+        env:
+          CI: true
+
+      - name: unit tests
+        run: npm run test
+          npm run e2e
+        env:
+          CI: true
+
+      - name: e2e tests
+        run: npm run e2e
+        shell: bash
         env:
           CI: true

@@ -14,7 +14,7 @@
   "scripts": {
     "build": "rm -rf build && tsc -p ./",
     "test": "jest",
-    "e2e": "./tests/e2e.sh"
+    "e2e": "sh tests/e2e.sh"
   },
   "bin": {
     "typac": "./bin/typac.js"
@@ -27,15 +27,16 @@
     "README.md"
   ],
   "devDependencies": {
-    "@types/commander": "^2.12.2",
-    "@types/jest": "^23.3.10",
-    "@types/node": "^10.12.18",
-    "jest": "^23.6.0",
-    "ts-jest": "^23.10.5",
-    "tslint": "^5.12.0",
-    "typescript": "^3.2.2"
+    "@types/jest": "^27.0.2",
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
+    "@typescript-eslint/parser": "^3.7.1",
+    "eslint": "^7.5.0",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
-    "commander": "^2.19.0"
+    "commander": "^6.0.0"
   }
 }

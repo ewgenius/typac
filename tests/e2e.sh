@@ -13,32 +13,24 @@ cd "$(dirname "$0")"
 temp_cli_path=`mktemp -d 2>/dev/null || mktemp -d -t 'temp_cli_path'`
 temp_app_path=`mktemp -d 2>/dev/null || mktemp -d -t 'temp_app_path'`
 
-function cleanup {
-  echo 'Cleaning up.'
-  cd "$root_path"
-  # Uncomment when snapshot testing is enabled by default:
-  # rm ./packages/react-scripts/template/src/__snapshots__/App.test.js.snap
-  rm -rf test
-}
-
 # Error messages are redirected to stderr
-function handle_error {
+handle_error() {
   echo "$(basename $0): ERROR! An error was encountered executing line $1." 1>&2;
   cleanup
   echo 'Exiting with error.' 1>&2;
   exit 1
 }
 
-function handle_exit {
+handle_exit() {
   cleanup
   echo 'Exiting without error.' 1>&2;
   exit
 }
 
-function init_test_dir {
-  cleanup
-  mkdir test
-  cd test
+init_test_dir() {
+  temp_app_path=`mktemp -d 2>/dev/null || mktemp -d -t 'temp_app_path'`
+  echo "Testing at path: $temp_app_path"
+  cd $temp_app_path
   touch package.json
   echo "{}" > package.json
 }
@@ -51,12 +43,33 @@ cd ..
 root_path=$PWD
 
 init_test_dir
-"$root_path"/bin/typac.js react
+"$root_path"/bin/typac.js react 2>&1 | tee "$temp_app_path"/log.txt
+if [ -e "$temp_app_path"/node_modules/react ] && [ -e "$temp_app_path"/node_modules/@types/react ]
+then
+  printf "\033[0;32m'typac.js react' [npm]: Succeeded\033[0m\n"
+else
+  ls -la "$temp_app_path"/node_modules
+  exit 1
+fi
 
 init_test_dir
 touch yarn.lock
-"$root_path"/bin/typac.js react
+"$root_path"/bin/typac.js react 2>&1 | tee "$temp_app_path"/log.txt
+if [ -e "$temp_app_path"/node_modules/react ] && [ -e "$temp_app_path"/node_modules/@types/react ]
+then
+  printf "\033[0;32m'typac.js react' [yarn]: Succeeded\033[0m\n"
+else
+  ls -la "$temp_app_path"/node_modules
+  exit 1
+fi
 
 init_test_dir
 touch yarn.lock
-"$root_path"/bin/typac.js @babel/core @babel/code-frame
+"$root_path"/bin/typac.js @babel/core @babel/code-frame 2>&1 | tee "$temp_app_path"/log.txt
+if [ -e "$temp_app_path"/node_modules/@babel/core ] && [ -e "$temp_app_path"/node_modules/@babel/code-frame ] && [ -e "$temp_app_path"/node_modules/@types/babel-core ] && [ -e "$temp_app_path"/node_modules/@types/babel-code-frame ]
+then
+  printf "\033[0;32m'typac.js @babel/core @babel/code-frame' [yarn]: Succeeded\033[0m\n"
+else
+  ls -la "$temp_app_path"/node_modules
+  exit 1
+fi

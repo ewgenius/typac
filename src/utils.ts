@@ -1,37 +1,37 @@
-const PREFIX = '@types/';
+const PREFIX = "@types/";
 
 export function typifyPackageName(name: string): string {
-  if (name && name.length > 0 && name[0] === '@') {
-    return PREFIX + name.slice(1).replace('/', '-');
+  if (name && name.length > 0 && name[0] === "@") {
+    return PREFIX + name.slice(1).replace("/", "-");
   }
   return PREFIX + name;
 }
 
 export enum PackageManager {
-  NPM = 'npm',
-  YARN = 'yarn'
+  NPM = "npm",
+  YARN = "yarn",
 }
 
 const Arguments = {
   install: {
-    [PackageManager.NPM]: 'install',
-    [PackageManager.YARN]: 'add',
+    [PackageManager.NPM]: "install",
+    [PackageManager.YARN]: "add",
   },
   save: {
-    [PackageManager.NPM]: '--save',
-    [PackageManager.YARN]: '',
+    [PackageManager.NPM]: "--save",
+    [PackageManager.YARN]: "",
   },
   saveDev: {
-    [PackageManager.NPM]: '--save-dev',
-    [PackageManager.YARN]: '--dev',
-  }
+    [PackageManager.NPM]: "--save-dev",
+    [PackageManager.YARN]: "--dev",
+  },
 };
 
 export function installArguments(
   manager: PackageManager,
   packages: string[],
-  save: boolean = false,
-  dev: boolean = false
+  save = false,
+  dev = false
 ): string[] {
   if (!packages || !packages.length) {
     return [];

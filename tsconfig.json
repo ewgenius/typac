@@ -8,7 +8,11 @@
     "noUnusedParameters": true,
     "sourceMap": false,
     "declaration": true,
-    "outDir": "build"
+    "outDir": "build",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "removeComments": true
   },
   "exclude": ["node_modules", "build", "tests"]
 }

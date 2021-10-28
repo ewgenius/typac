@@ -21,7 +21,7 @@ programm
   .option("-s, --save", "save all to dependencies")
   .parse(process.argv);
 
-const prog = (programm as any) as ITypacProgramm;
+const prog = programm as any as ITypacProgramm;
 
 const packages = prog.args;
 const { dev, save } = prog;

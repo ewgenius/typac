@@ -11,10 +11,9 @@ jobs:
           - macos-latest
           # - windows-latest: TODO - turn it back
         node-version:
-          - 12.x
           - 14.x
-          - 15.x
           - 16.x
+          - 17.x
       fail-fast: false
 
     runs-on: ${{ matrix.os }}

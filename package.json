@@ -1,0 +1,24 @@
+{
+  "name": "typac",
+  "version": "1.0.0",
+  "description": "cli wrapper over npm and yarn for installing npm packages along with corresponding typings",
+  "keywords": [
+    "cli",
+    "typescript",
+    "typings",
+    "install"
+  ],
+  "repository": "git@github.com:ewgenius/typac.git",
+  "author": "Evgeniy Khramkov <ewgeniux@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "typac": "./bin/typac.js"
+  },
+  "files": [
+    "bin",
+    "build",
+    "LICENSE.md",
+    "package.json",
+    "README.md"
+  ]
+}

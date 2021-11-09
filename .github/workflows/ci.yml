@@ -1,6 +1,7 @@
 name: CI
 
-on: [push]
+# TODO: disabling push trigger for now
+on: [workflow_dispatch]
 
 jobs:
   build:

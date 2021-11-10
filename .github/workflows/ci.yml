@@ -15,14 +15,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+
       - uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
           args: --release --all-features
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-${{ matrix.os }}
+          path: target/release/typac
 
       # - name: Use Node.js ${{ matrix.node-version }}
       #   uses: actions/setup-node@v1
